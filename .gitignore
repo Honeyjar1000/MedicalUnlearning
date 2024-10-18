@@ -1,0 +1,4 @@
+"# Ignore virtual environment" 
+fyp/
+main/model_weights/
+main/SaliencyMaps/

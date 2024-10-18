@@ -1,0 +1,75 @@
+#####################################################################################################################
+#####################################################################################################################
+###
+###     TRAIN NEW MODEL
+###
+#####################################################################################################################
+#####################################################################################################################
+
+python main_train.py    --save_model_id derma_test_1  --dataset DermaMNIST   --epochs 50 --lr 0.0001 --batch_size 50
+
+python main_train.py    --save_model_id blood_lr_0001_ep_50   --dataset ChestMNIST    --seed 1     --epochs 1 --lr 0.0001 --batch_size 100
+python main_train.py    --save_model_id blood_lr_0001_ep_50    --dataset PathMNIST --epochs 50 --lr 0.0001 --batch_size 100
+python main_train.py    --save_model_id blood_lr_0001_ep_50   --dataset DermaMNIST   --epochs 50 --lr 0.0001 --batch_size 100
+python main_train.py    --save_model_id blood_lr_0001_ep_50   --dataset BloodMNIST --epochs 50 --lr 0.0001 --batch_size 100
+
+
+#####################################################################################################################
+#####################################################################################################################
+###
+###     TEST MODEL
+###
+#####################################################################################################################
+#####################################################################################################################
+
+python main_test.py --model_id path_lr_0001_ep_100_best  --dataset PathMNIST   --batch_size 50 --num_workers 0
+
+#####################################################################################################################
+#####################################################################################################################
+###
+###     EXAMINE DATASET
+###
+#####################################################################################################################
+#####################################################################################################################
+
+python examine_dataset.py --dataset ChestMNIST
+
+#####################################################################################################################
+#####################################################################################################################
+###
+###     GENERATE MASK
+###
+#####################################################################################################################
+#####################################################################################################################
+
+python generate_mask.py --model_id path_lr_001_ep_50_best --dataset PathMNIST
+
+
+#####################################################################################################################
+#####################################################################################################################
+###
+###     CREATE UNLEARN MODEL
+###
+#####################################################################################################################
+#####################################################################################################################
+
+python main_unlearn.py --model_id path_lr_001_ep_100_best --dataset PathMNIST   --unlearn Retrain           --class_to_forget 0 --mask_thresh 0.5 --unlearn_epochs 50   --unlearn_lr 0.001  --unlearn_batch_size 100
+
+python main_unlearn.py --model_id path_lr_001_ep_50_best --dataset PathMNIST   --unlearn RL_with_SalUn     --class_to_forget 0 --mask_thresh 0.5 --unlearn_epochs 5   --unlearn_lr 0.001  --unlearn_batch_size 100
+python main_unlearn.py --model_id path_lr_001_ep_50_best --dataset PathMNIST   --unlearn RL                --class_to_forget 0 --mask_thresh 0.5 --unlearn_epochs 5   --unlearn_lr 0.001  --unlearn_batch_size 100 !!!
+python main_unlearn.py --model_id path_lr_001_ep_50_best --dataset PathMNIST   --unlearn FT_with_SalUn     --class_to_forget 0 --mask_thresh 0.5 --unlearn_epochs 5   --unlearn_lr 0.001  --unlearn_batch_size 100
+python main_unlearn.py --model_id path_lr_001_ep_50_best --dataset PathMNIST   --unlearn FT                --class_to_forget 0 --mask_thresh 0.5 --unlearn_epochs 5   --unlearn_lr 0.001  --unlearn_batch_size 100
+python main_unlearn.py --model_id path_lr_001_ep_50_best --dataset PathMNIST   --unlearn GA_with_SalUn     --class_to_forget 0 --mask_thresh 0.5 --unlearn_epochs 3    --unlearn_lr 0.001 --unlearn_batch_size 100
+python main_unlearn.py --model_id path_lr_001_ep_50_best --dataset PathMNIST   --unlearn GA                --class_to_forget 0 --mask_thresh 0.5 --unlearn_epochs 3    --unlearn_lr 0.001 --unlearn_batch_size 100
+
+
+#####################################################################################################################
+#####################################################################################################################
+###
+###     TEST UNLEARN MODEL
+###
+#####################################################################################################################
+#####################################################################################################################
+
+python main_test_unlearn.py     --model_id path_lr_001_ep_50_best_FORGOTTEN_0_RL_mask5_unlearnEpochs5_unlearnlr001  --dataset PathMNIST  --class_to_forget 0 --batch_size 100
+
