@@ -1,6 +1,8 @@
 # Medical Unlearning
 
-Toward machine fairness in the field of medicine. This project aims to verify unlearning methods can be applied to models trained for medical image classification tasks.
+Toward machine fairness in the field of medicine. 
+
+This project aims to verify unlearning methods can be applied to models trained for medical image classification tasks.
 
 Torch with CUDA is required for this project.
 
